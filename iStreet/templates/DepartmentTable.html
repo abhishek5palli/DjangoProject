@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Simple Datatable start -->
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4">Department</h4>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">Department</th>
+									<th>Description</th>
+									<th>Location</th>
+<!--									<th class="datatable-nosort">Action</th>-->
+								</tr>
+							</thead>
+							<tbody>
+           					 {% for dl in department_list %}
+								<tr>
+                                    <td>{{ dl.department_name }}</td>
+									<td>{{ dl.description }}</td>
+                                    <td>{{ dl.location }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Departments Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+
+                        </table>
+						<br>
+                        <button class="btn btn-primary"><a href="{% url 'department' %}" style="color: #f9f9f9">Add Department</a></button>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block noti %}
+<ul>
+	{% for act in activity %}
+<!--	<li>{{act.user}}</li>-->
+	<li>{{act.activity}} </li>
+	<li>{{act.timestamp}} </li><br>
+	{% endfor %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<!--<div class="main-container">-->
+		<div class="pd-ltr-20">
+			<div class="card-box pd-20 height-100-p mb-30">
+				<div class="row align-items-center">
+					<div class="col-md-4">
+						<img src="vendors/images/banner-img.png" alt="">
+					</div>
+					<div class="col-md-8">
+						<h4 class="font-20 weight-500 mb-10 text-capitalize">
+							Welcome back <div class="weight-600 font-30 text-blue">{{request.user.name}} !! </div>
+						</h4>
+						<p class="font-18 max-width-600">This UI belongs to {{request.user.role | capfirst }}!! You can view your activity logs here. Also, you can find your profile here. Thanks!!</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-8 mb-30">
+					<div class="card-box height-100-p pd-20">
+<!--						<h2 class="h4 mb-20">Activity</h2>-->
+						<canvas id="myChart3" aria-label="chart" role="img" height="400" width="700"></canvas>-->
+<!--						<div id="chart5"></div>-->
+					</div>
+				</div>
+				<div class="col-xl-4 mb-30">
+					<div class="card-box height-100-p pd-20">
+						<h2 class="h4 mb-20">Lead Target</h2>
+<!--							<canvas id="myChart3" aria-label="chart" role="img" height="500" width="500"></canvas>-->
+
+						<div id="chart6"></div>
+					</div>
+				</div>
+			</div>
+			<div class="card-box mb-30">
+				<h2 class="h4 pd-20">Your Activity</h2>
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort"> Email</th>
+									<th>Activity</th>
+<!--									<th>Time</th>-->
+									<th class="datatable-nosort">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+           					 {% for act in activity %}
+								<tr>
+                                    <td>{{ act.user }}</td>
+									<td>{{ act.activity }}</td>
+                                    <td>{{ act.timestamp }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Activity Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+                        </table>
+
+			</div>
+		</div>
+<!--	</div>-->
+
+
+
+                        {% if messages %}
+        					{% for message in messages %}
+         						{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        					{% endfor %}
+    					{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById("myChart3");
+
+    var myChart3 = new Chart(ctx, {
+    type: "polarArea",
+    data: {
+        labels: [{% for name in activity_names %} '{{ name }}', {% endfor %} ],
+        datasets: [
+            {
+                label : 'Activity',
+                data : [{% for nums in activity_nums %} '{{ nums }}', {% endfor %} ],
+            },
+        ],
+    },
+    options: {
+        responsive: false,
+    }
+});
+</script>
+{% endblock %}

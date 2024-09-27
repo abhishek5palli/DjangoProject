@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Simple Datatable start -->
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4">Employees</h4>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">Employee Name</th>
+									<th>Email</th>
+									<th>Department</th>
+									<th>Role</th>
+                                    <th>City</th>
+<!--									<th class="datatable-nosort">City</th>-->
+								</tr>
+							</thead>
+							<tbody>
+           					 {% for emp in emp_list %}
+								<tr>
+                                    <td>{{ emp.emp_name }}</td>
+									<td>{{ emp.emp_email }}</td>
+                                    <td>{{ emp.emp_department }}</td>
+									<td>{{ emp.emp_role }}</td>
+									<td>{{ emp.emp_city }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Employees Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+
+                        </table>
+						<br>
+                        <button class="btn btn-primary"><a href="{% url 'employee' %}" style="color: #f9f9f9">Add Employee</a></button>
+				</div>
+					{% if messages %}
+        					{% for message in messages %}
+         						{% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+        					{% endfor %}
+					{% endif %}
+
+				</div>
+{% endblock %}

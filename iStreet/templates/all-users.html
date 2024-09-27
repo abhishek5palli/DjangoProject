@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block noti %}
+<ul>
+	{% for act in activity %}
+<!--	<li>{{act.user}}</li>-->
+	<li>{{act.activity}} </li>
+	<li>{{act.timestamp}} </li>
+	{% endfor %}
+</ul>
+{% endblock %}
+
+{% block content %}
+
+<!-- Simple Datatable start -->
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4">Users List</h4>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort">Username</th>
+									<th>Email</th>
+									<th>Name</th>
+									<th>Phone</th>
+									<th>City</th>
+									<th>Role</th>
+<!--									<th class="datatable-nosort">Action</th>-->
+								</tr>
+							</thead>
+							<tbody>
+           					 {% for user in users %}
+								<tr>
+                                    <td>{{ user.username }}</td>
+									<td>{{ user.email }}</td>
+                                    <td>{{ user.name }}</td>
+									<td>{{ user.phone }}</td>
+									<td>{{ user.city }}</td>
+									<td>{{ user.role }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Profile Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+
+                        </table>
+						<br>
+<!--                        <button class="btn btn-primary"><a href="{% url 'expense' %}" style="color: #f9f9f9">Add Expenses</a></button>-->
+				</div>
+			</div>
+
+{% endblock %}

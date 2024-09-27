@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Simple Datatable start -->
+				<div class="card-box mb-30">
+					<div class="pd-20">
+						<h4 class="text-blue h4">Activity</h4>
+					</div>
+					<div class="pb-20">
+						<table class="data-table table stripe hover nowrap">
+							<thead>
+								<tr>
+									<th class="table-plus datatable-nosort"> Email</th>
+									<th>Activity</th>
+									<th>Time</th>
+									<th class="datatable-nosort"></th>
+								</tr>
+							</thead>
+							{% if request.user.role == 'admin' %}
+							<tbody>
+           					 {% for ad in admins %}
+								<tr>
+                                    <td>{{ ad.user }}</td>
+									<td>{{ ad.activity }}</td>
+                                    <td>{{ ad.timestamp }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Activity Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+
+							{% else %}
+
+							<tbody>
+           					 {% for act in active %}
+								<tr>
+                                    <td>{{ act.user }}</td>
+									<td>{{ act.activity }}</td>
+                                    <td>{{ act.timestamp }}</td>
+								</tr>
+							{% empty %}
+							<tr>
+          						  <td>No Activity Available.</td>
+							</tr>
+        					{% endfor %}
+                            </tbody>
+
+							{% endif %}
+
+                        </table>
+						<br>
+<!--                        <button class="btn btn-primary"><a href="{% url 'expense' %}" style="color: #f9f9f9">Add Expenses</a></button>-->
+				</div>
+			</div>
+
+{% endblock %}

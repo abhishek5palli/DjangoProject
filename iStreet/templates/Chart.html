@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myChart4" aria-label="chart" role="img" height="500" width="500"></canvas>
+
+
+
+
+
+<script src="{% static 'src/scripts/myCharts.js' %}"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById("myChart4");
+
+    var myChart4 = new Chart(ctx, {
+    type: "polarArea",
+    data: {
+        labels: [{% for city in cities %} '{{ city }}', {% endfor %} ],
+        datasets: [
+            {
+                label : 'Users',
+                data : [{% for user in users %} '{{ user }}', {% endfor %} ],
+            },
+        ],
+    },
+    options: {
+        responsive: false,
+    }
+});
+</script>
+
+</body>
+</html>
